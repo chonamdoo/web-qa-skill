@@ -103,13 +103,14 @@ Fix expected results and their basis before judging outcomes. Current app output
 ## 5. Generate and execute tests
 
 - Write executable specs matching the existing suite. Prefer roles, accessible names, labels, and stable test IDs. Use real readiness conditions, auto-waiting, and outcome assertions instead of arbitrary sleeps.
-- Perform actions through real user input. Do not label direct DOM value changes or internal function calls as click/touch E2E. Use DOM/page code for observation and diagnosis.
+- Once scenarios, supported expectations, required targets, isolated setup/cleanup, and evidence needs are fixed, validate matching executable tests and run stable flows in batches through the existing runner's CLI or browser-tool script. Let the runner perform actions, waits, assertions, and evidence capture without a model decision at every step. Reuse existing fixtures and dependency ordering; batching does not imply parallel execution. No additional CLI package, adapter layer, or DSL is required.
+- Perform actions through real user input. Keep API checks separate from UI E2E, and preserve keyboard/IME and platform-specific paths. Do not bypass obstruction or disabled controls with forced clicks, JavaScript clicks, direct DOM value changes, or internal function calls. Use DOM/page code for observation and diagnosis.
 - Judge execution by expected UI/data outcomes. A successful tool action, dispatched HTTP request, or success toast does not prove a broader result. Verify persistence, permission denial, and absence of changes where required.
 - Save the required evidence of each verified result state before navigation, reset, or cleanup replaces it. A screenshot of the restored state is not evidence of the preceding result; apply step 6's protection and retention rules.
 - Check clipping, obstruction, unintended overflow, and the ability to read, scroll, focus, and operate the layout. Check keyboard paths, names/labels, and open modal states. Use installed accessibility tools as supplementary checks; do not present an automated scan as complete accessibility certification.
 - Use reviewed visual baselines for the specific environment. Without a baseline, separate directly observed problems from missing baseline coverage instead of automatically approving the current screen.
 - Execute every planned scenario × required combination. Allow interactions appropriate to each environment's presentation without weakening business outcomes. Do not assume Playwright specs run unchanged in Appium/Selenium. Share scenario, oracle, data, and result IDs, and implement the necessary runner-specific execution.
-- Return to steps 3–4 when new UI/states appear. Preserve original failures. Add an attempt for reruns instead of overwriting the first failure. Before retrying actions that risk duplicate submission, check state and use only permitted retry methods.
+- Return to steps 3–4 for affected states when UI, build behavior, roles/authentication, preconditions, or locator identity changes or becomes ambiguous; do not silently heal and continue. Recheck the current build, target, and session before replay, and resolve locators afresh rather than persisting snapshot refs across pages or sessions. Preserve original failures. Add an attempt for reruns instead of overwriting the first failure. Before retrying actions that risk duplicate submission, check state and use only permitted retry methods, including the runner's configured automatic retries.
 - Correct a harness locator or wait condition only when live DOM/state evidence establishes the test error. Keep the original expected outcome and coverage, record the evidence and correction reason, and rerun as a separate attempt with the original failure retained. Attribute a demonstrated harness error separately from a product defect or product flakiness; a successful rerun alone does not establish the cause.
 - A healer may only propose changes grounded in the original requirements. Do not hide failures with skips, `.only`, expected-failure markers, or automatic snapshot approval to obtain a pass.
 
@@ -119,13 +120,17 @@ Fix expected results and their basis before judging outcomes. Current app output
 
 Classify execution results as `PASS / FAIL / FLAKY / SKIPPED / BLOCKED / NOT_RUN`. Preserve original runner status/exit and reasons for reclassification. Identify `NOT_APPLICABLE` before execution with evidence that its applicability condition is false; do not erase unknown conditions as N/A. Explorer's unavailable-environment exception is separately `EXCLUDED_UNAVAILABLE`, not PASS.
 
+Use existing reporter/artifact facilities to save full required observations and evidence under the protection rules below, while returning a compact index to the model: scope/build, planned/executed/failed/unexecuted counts, scenario/target/attempt IDs for failures and gaps, and accessible detail/report locations. Retrieve targeted state or failure details instead of repeatedly printing entire DOM snapshots and result payloads. This reduces context output, not the required collection or review of evidence; unresolved visual judgments still require inspection.
+
 Reconcile three dimensions separately:
 
 1. Element/action inventory ↔ scenarios: items without scenarios.
-2. Scenarios × required environments ↔ execution results: unexecuted combinations, missing shards, zero tests, and interruptions.
+2. Scenarios × required environments ↔ execution results: unexecuted combinations or steps, missing shards, zero tests, and interruptions; include all attempts, not only the latest retry.
 3. Expected results ↔ observations/evidence: items without support or proving only a different boundary.
 
 **Pass criteria:** QA passes for the stated scope only when its required execution set is nonempty, no known unexplored or unwritten items remain within that scope, every required combination is PASS against the original expected results, and evidence collection is complete. FAIL/FLAKY/SKIPPED/BLOCKED/NOT_RUN and missing results in the required set prevent an overall pass. A successful PR smoke subset or aggregate pass rate cannot offset required failures. Disclose sampling, equivalence classes, and exclusions; do not imply proof of infinitely many possible user actions.
+
+Apply this reconciliation before reporting CLI success. A runner exit of zero or a compact summary alone is not a QA verdict. When an existing wrapper or CI gate publishes the overall QA result, make incomplete or non-passing required work fail that gate while retaining the raw runner status/exit separately.
 
 Connect the following in the report:
 

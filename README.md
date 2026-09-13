@@ -83,6 +83,18 @@ Inspect the real UI, then write and execute scenarios and E2E tests.
 Follow the project's existing test tools and execution rules.
 ```
 
+### Repeat analyzed scenarios through CLI
+
+```text
+Use web-qa to rerun the analyzed scenarios on desktop Chrome only.
+Validate the existing executable tests and isolated setup, then run them
+in batches through the project's existing CLI runner.
+Return a compact result index with links to full protected evidence.
+Reinspect changed or ambiguous states and unresolved visual judgments.
+```
+
+CLI batching avoids a model decision at every action; it does not reduce required coverage or evidence. No OpenCLI dependency or new runner is bundled. Total token savings depend on test authoring, maintenance, image review, and failure analysis, not just output size.
+
 ### Feature described without an app
 
 ```text
