@@ -14,11 +14,15 @@ The source is **the user requirements recorded in the original skill authoring m
 
 Product-specific roles, correct business outcomes, supported OS/browser versions, physical device lists, and authorized external effects were not fixed by the original requirements. Resolve them from the target project's/user's contract and access permissions. A separate effective date for the user requirements is unknown.
 
+Subsequent user-approved refinements allow explicitly scoped runs, including Chrome-only testing; the original cross-browser matrix remains the default when no scope is specified. The user also approved capturing required result-state evidence before restoration and permitting evidence-grounded harness corrections that preserve expected outcomes and original failures. These refine this package's procedure, not an industry standard or a claim of improved agent reliability.
+
 ## Author-derived defaults
 
 The Playwright-centered setup plus real Safari/WebDriver and mobile/Appium, preference for ADB reverse, starting CSS viewports, inventory/scenario fields, result classifications, and gap gates are **the author's design choices** for making the requirements executable. They are not industry-wide mandates. Better-suited existing tools may be used when they satisfy the same observation, authorization, and judgment contract.
 
 The limits of finite execution over infinitely many actions, not treating observations as correctness, dedicated sessions, synthetic data, and preservation of original failures are execution criteria for honest evidence and safety. Derived examples and viewport values are not facts observed in an actual product.
+
+The post-reset/cleanup evidence-access check is an independently worded adaptation of the evidence-lifecycle guidance in pstack's [create-verification-skill](https://github.com/cursor/plugins/blob/5bf2b1544db739998121a306340631963c2ff3de/pstack/skills/create-verification-skill/SKILL.md) (§2 Cleanup and §4) and [maintain-verification-skill](https://github.com/cursor/plugins/blob/5bf2b1544db739998121a306340631963c2ff3de/pstack/skills/maintain-verification-skill/SKILL.md) (Pass 4). This borrows a procedural principle, not their skill files, feature-map structure, invocation settings, or PR workflow. It preserves this package's existing authorization, evidence judgment, and coverage contract; it does not establish improved agent reliability or cross-host execution compatibility.
 
 ## Official technical sources
 

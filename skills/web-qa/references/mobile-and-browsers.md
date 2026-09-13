@@ -18,7 +18,7 @@ Selenium has ended support for standalone IE; IEDriver support for Edge IE mode 
 
 ## 2. Tool readiness and isolation
 
-Inspect available tools first. On Mac, check the selected Xcode path, installed runtimes/Simulators, Android SDK, AVDs, Chrome availability, installed Appium/driver versions and their Node/JDK/Xcode requirements, and Safari automation readiness. If a command is not on PATH, inspect project configuration and SDK locations before declaring it uninstalled.
+Inspect tools needed for the run's required targets first. On Mac, check Chrome availability for Chrome testing, Safari automation readiness for Safari, Xcode and installed runtimes/Simulators for iOS, and Android SDK/AVDs for Android; check Appium/driver and Node/JDK/Xcode requirements where that execution path needs them. An explicitly Chrome-only run does not require Safari or mobile tooling. If a required command is not on PATH, inspect project configuration and SDK locations before declaring it uninstalled.
 
 Configure session capabilities using help/official documentation for installed versions. Typical distinctions are iOS `platformName: iOS`, `appium:automationName: XCUITest`, `browserName: safari`, and Android `platformName: Android`, `appium:automationName: UiAutomator2`, `browserName: chrome`. Establish actual device IDs, OS versions, and driver compatibility separately. Do not copy nonexistent versions/UDIDs from examples.
 
