@@ -14,8 +14,9 @@ An autonomous UI QA procedure for coding agents with browser, file, and command 
 
 ## Execution contract
 
-- The default required scope includes desktop Chrome and Safari, Android Chrome, iOS Safari, multiple screen sizes, and mobile OS behavior. Add any broader support contract specified by the product.
-- Test Explorer when an execution environment is available. If none is available, record `EXCLUDED_UNAVAILABLE` and the reason. Do not apply this exception to Chrome, Safari, Android, or iOS.
+- Use the current user's explicitly requested browser/device scope for this run, including Chrome-only testing. When none is specified, require desktop Chrome and Safari, Android Chrome, iOS Safari, multiple screen sizes, and mobile OS behavior, plus any broader product support contract. A narrower requested run does not certify the product's full support matrix.
+- Record environments outside the requested scope as out of scope, not failed or unexecuted required targets; they do not block a scoped PASS. Required targets that cannot run remain `BLOCKED / NOT_RUN`. Tool availability alone does not authorize narrowing scope.
+- Within the applicable scope, test Explorer when an execution environment is available. If none is available, record `EXCLUDED_UNAVAILABLE` and the reason. Do not apply this exception to other required targets.
 - Do not replace discovered UI elements and actions with a handful of smoke tests. Priority determines execution order. Instead of claiming exhaustive exploration of infinitely many inputs and action sequences, explain equivalence classes, boundaries, state transitions, and unexplored areas.
 - Complete work autonomously when execution is authorized and expected results have a supporting basis. Look in code, configuration, documentation, and the real UI first; ask only questions tools cannot resolve, such as business expectations or authorization.
 - Reporting results and fixing the product are separate tasks. Do not arbitrarily change product code, assertions, or baselines to make tests pass.
@@ -104,10 +105,12 @@ Fix expected results and their basis before judging outcomes. Current app output
 - Write executable specs matching the existing suite. Prefer roles, accessible names, labels, and stable test IDs. Use real readiness conditions, auto-waiting, and outcome assertions instead of arbitrary sleeps.
 - Perform actions through real user input. Do not label direct DOM value changes or internal function calls as click/touch E2E. Use DOM/page code for observation and diagnosis.
 - Judge execution by expected UI/data outcomes. A successful tool action, dispatched HTTP request, or success toast does not prove a broader result. Verify persistence, permission denial, and absence of changes where required.
+- Save the required evidence of each verified result state before navigation, reset, or cleanup replaces it. A screenshot of the restored state is not evidence of the preceding result; apply step 6's protection and retention rules.
 - Check clipping, obstruction, unintended overflow, and the ability to read, scroll, focus, and operate the layout. Check keyboard paths, names/labels, and open modal states. Use installed accessibility tools as supplementary checks; do not present an automated scan as complete accessibility certification.
 - Use reviewed visual baselines for the specific environment. Without a baseline, separate directly observed problems from missing baseline coverage instead of automatically approving the current screen.
 - Execute every planned scenario × required combination. Allow interactions appropriate to each environment's presentation without weakening business outcomes. Do not assume Playwright specs run unchanged in Appium/Selenium. Share scenario, oracle, data, and result IDs, and implement the necessary runner-specific execution.
 - Return to steps 3–4 when new UI/states appear. Preserve original failures. Add an attempt for reruns instead of overwriting the first failure. Before retrying actions that risk duplicate submission, check state and use only permitted retry methods.
+- Correct a harness locator or wait condition only when live DOM/state evidence establishes the test error. Keep the original expected outcome and coverage, record the evidence and correction reason, and rerun as a separate attempt with the original failure retained. Attribute a demonstrated harness error separately from a product defect or product flakiness; a successful rerun alone does not establish the cause.
 - A healer may only propose changes grounded in the original requirements. Do not hide failures with skips, `.only`, expected-failure markers, or automatic snapshot approval to obtain a pass.
 
 **Completion criteria:** Every planned combination has an actual execution result or explicit reason for non-execution, with assertions and evidence supporting the judgment. Generating code does not mean execution is complete.
@@ -122,7 +125,7 @@ Reconcile three dimensions separately:
 2. Scenarios × required environments ↔ execution results: unexecuted combinations, missing shards, zero tests, and interruptions.
 3. Expected results ↔ observations/evidence: items without support or proving only a different boundary.
 
-**Pass criteria:** QA passes for the stated scope only when the required execution set is nonempty, no known unexplored or unwritten items remain, every required combination is PASS against the original expected results, and evidence collection is complete. FAIL/FLAKY/SKIPPED/BLOCKED/NOT_RUN and missing results prevent an overall pass. A successful PR smoke subset or aggregate pass rate cannot offset required failures. Disclose sampling, equivalence classes, and exclusions; do not imply proof of infinitely many possible user actions.
+**Pass criteria:** QA passes for the stated scope only when its required execution set is nonempty, no known unexplored or unwritten items remain within that scope, every required combination is PASS against the original expected results, and evidence collection is complete. FAIL/FLAKY/SKIPPED/BLOCKED/NOT_RUN and missing results in the required set prevent an overall pass. A successful PR smoke subset or aggregate pass rate cannot offset required failures. Disclose sampling, equivalence classes, and exclusions; do not imply proof of infinitely many possible user actions.
 
 Connect the following in the report:
 
@@ -133,3 +136,5 @@ Connect the following in the report:
 - Numerators and denominators for planned, authored, executed, passed, failed, and unexecuted work; conclusions distinguishing environment issues, product defects, missing information, and approved exclusions.
 
 Minimize and protect collected tokens, cookies, and personal data before reporting. Do not assume screenshots, traces, or HAR files automatically redact secrets. At the end, clean up only this task's sessions, servers, port connections, synthetic data, and changed device settings; preserve the user's other work.
+
+Before a retry reset or final cleanup, keep collected required evidence separate from disposable state, using the project's existing report or runner artifact storage. Afterward, confirm that evidence for each recorded attempt remains accessible at its reported location. Accessibility alone does not establish that its contents prove the expected result. Report missing or inaccessible evidence as a gap under the existing pass criteria; do not claim overall PASS or automatically repeat side-effecting actions to replace it. Preservation remains subject to the authorization and data-protection boundaries above, not a requirement to retain raw secrets indefinitely or upload them elsewhere. Description-only scenario drafts do not require execution artifacts.

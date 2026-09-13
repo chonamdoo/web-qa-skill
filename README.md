@@ -15,25 +15,25 @@ Choose **one** installation scope below. You can select the target agent during 
 Run from the **root of the project** where you want to use the skill.
 
 ```sh
-npx skills@latest add chonamdoo/web_qa_skill --skill web-qa
+npx skills@latest add chonamdoo/web-qa-skill --skill web-qa
 ```
 
 ### Global — use across projects
 
 ```sh
-npx skills@latest add chonamdoo/web_qa_skill --skill web-qa --global
+npx skills@latest add chonamdoo/web-qa-skill --skill web-qa --global
 ```
 
 To target a particular agent, use its CLI agent ID. For example, to install for Codex in the current project:
 
 ```sh
-npx skills@latest add chonamdoo/web_qa_skill --skill web-qa --agent codex
+npx skills@latest add chonamdoo/web-qa-skill --skill web-qa --agent codex
 ```
 
 To list skills without installing:
 
 ```sh
-npx skills@latest add chonamdoo/web_qa_skill --list
+npx skills@latest add chonamdoo/web-qa-skill --list
 ```
 
 These GitHub commands become usable after the skill files are published to the repository's default branch. To inspect local sources, run `npx skills@latest add . --list` from this repository root.
@@ -58,6 +58,13 @@ A small smoke subset does not replace discovered actions. The skill also does no
 ## Usage examples
 
 Ask the agent where the skill is installed using prompts such as these. Skill invocation and selection interfaces vary by host.
+
+### Chrome-only execution
+
+```text
+Use web-qa to test https://example.test on desktop Chrome only.
+Report the Chrome results; Safari and mobile are outside this run's scope.
+```
 
 ### Web app running on localhost
 
@@ -103,7 +110,7 @@ Prefer the project's existing test tools. Defaults for a new setup are:
 - Prepare test accounts, synthetic data, and an authorized workspace. Follow the project's worktree and build/test rules when executing code.
 - Payments, sending, publishing, real data changes, and external transfers require an explicitly authorized scope.
 - Cloud devices, public tunnels, and additional tool installation are not automatically authorized.
-- Do not report overall QA as passed when required Chrome, Safari, Android, or iOS execution is incomplete. Do not extend Explorer's unavailable-environment exception to other targets.
+- Judge PASS against the explicitly requested scope, or the default matrix when none is specified. Chrome-only runs do not require Safari or mobile execution. Missing required targets still prevent PASS; tool unavailability alone does not authorize excluding them.
 
 See [Browser and mobile testing](skills/web-qa/references/mobile-and-browsers.md) and [Localhost connections](skills/web-qa/references/localhost.md) for preparation details.
 
