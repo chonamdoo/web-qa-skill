@@ -95,6 +95,20 @@ Reinspect changed or ambiguous states and unresolved visual judgments.
 
 CLI batching avoids a model decision at every action; it does not reduce required coverage or evidence. No OpenCLI dependency or new runner is bundled. Total token savings depend on test authoring, maintenance, image review, and failure analysis, not just output size.
 
+### Check CLI results and critical tests
+
+Keep an existing compliant QA gate. Otherwise, the optional dependency-free checker validates required scenario/target records, all attempts, run/build identity, and evidence-file SHA-256 hashes:
+
+```sh
+node skills/web-qa/scripts/check-run.mjs PLAN.json RESULT.json EVIDENCE_ROOT
+```
+
+This path applies in this repository; in an application, resolve it from the installed skill directory. Node.js 18+ is required only for the checker. No Reticle or MCP installation is needed. Exit 0 means the supplied records and evidence integrity passed, not that the app or business outcomes were independently verified.
+
+For critical persistence, authorization, or payment E2E tests, use isolated negative controls to check that a representative defect makes the unchanged test fail for the intended reason. Preserve the clean baseline, injected-fault failure, and restored baseline separately.
+
+See [CLI verification and false-green checks](skills/web-qa/references/cli-verification.md) for the input contract, trust limits, safe fault injection, and cleanup.
+
 ### Feature described without an app
 
 ```text
@@ -137,7 +151,10 @@ Distinguish `PASS`, `FAIL`, `FLAKY`, `SKIPPED`, `BLOCKED`, and `NOT_RUN`. Genera
 ```text
 skills/web-qa/
 ├── SKILL.md
+├── scripts/
+│   └── check-run.mjs
 └── references/
+    ├── cli-verification.md
     ├── mobile-and-browsers.md
     ├── localhost.md
     └── sources.md
@@ -153,3 +170,5 @@ The original PR #1 material at commit `38f1465` reports checks of frontmatter, i
 That material also reports running the actual `skills` CLI `add … --list` against the local repository and finding one skill, `web-qa`. Listing is not installation or verification of publication to the remote default branch.
 
 Those historical reports are preserved as provenance, not claimed as fresh execution of this English revision. They do not establish real browser interaction, execution of generated tests, Appium/device connectivity, or automatic discovery on every host. Verify the actual tools and environments when using the skill on a product.
+
+The CLI checker has dependency-free regression tests runnable with `node --test tests/check-run.test.mjs`. They exercise result completeness, retries, run/build mismatches, evidence integrity, and path containment using isolated synthetic files. They do not validate a product's browser flows or certify the truth of reporter-supplied results.
