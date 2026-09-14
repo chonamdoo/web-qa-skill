@@ -114,6 +114,8 @@ Fix expected results and their basis before judging outcomes. Current app output
 - Correct a harness locator or wait condition only when live DOM/state evidence establishes the test error. Keep the original expected outcome and coverage, record the evidence and correction reason, and rerun as a separate attempt with the original failure retained. Attribute a demonstrated harness error separately from a product defect or product flakiness; a successful rerun alone does not establish the cause.
 - A healer may only propose changes grounded in the original requirements. Do not hide failures with skips, `.only`, expected-failure markers, or automatic snapshot approval to obtain a pass.
 
+For critical E2E tests whose defect-detection ability needs checking, read [CLI verification and false-green checks](references/cli-verification.md). Use authorized, isolated negative controls and preserve baseline, injected-fault, and restored-baseline results separately.
+
 **Completion criteria:** Every planned combination has an actual execution result or explicit reason for non-execution, with assertions and evidence supporting the judgment. Generating code does not mean execution is complete.
 
 ## 6. Reconcile gaps and report
@@ -131,6 +133,8 @@ Reconcile three dimensions separately:
 **Pass criteria:** QA passes for the stated scope only when its required execution set is nonempty, no known unexplored or unwritten items remain within that scope, every required combination is PASS against the original expected results, and evidence collection is complete. FAIL/FLAKY/SKIPPED/BLOCKED/NOT_RUN and missing results in the required set prevent an overall pass. A successful PR smoke subset or aggregate pass rate cannot offset required failures. Disclose sampling, equivalence classes, and exclusions; do not imply proof of infinitely many possible user actions.
 
 Apply this reconciliation before reporting CLI success. A runner exit of zero or a compact summary alone is not a QA verdict. When an existing wrapper or CI gate publishes the overall QA result, make incomplete or non-passing required work fail that gate while retaining the raw runner status/exit separately.
+
+When integrating CLI results into a QA gate, read [CLI verification and false-green checks](references/cli-verification.md). Reuse an existing compliant gate; otherwise the optional dependency-free `scripts/check-run.mjs` checks required combinations, all attempts, run/build identity, and evidence hashes. Its PASS validates supplied records and artifact integrity, not their truth or overall QA completeness.
 
 Connect the following in the report:
 
