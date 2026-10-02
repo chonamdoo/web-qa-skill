@@ -1,0 +1,25 @@
+name: Skill update static checks
+on:
+  pull_request:
+    paths: ['skills/**', 'evals/**', 'tests/**', 'package*.json', 'tsconfig.json', 'README.md', '.github/workflows/eval.yml']
+  push:
+    branches: [main]
+    paths: ['skills/**', 'evals/**', 'tests/**', 'package*.json', 'tsconfig.json', 'README.md', '.github/workflows/eval.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run eval:static
+      - name: Explain local behavioral evaluation requirement
+        run: echo "Only static assets and gate contracts were checked. Actual Chrome/Safari skill-behavior eval and report validation must run locally after each update using evals/README.md. CI success is not a behavioral PASS." >> "$GITHUB_STEP_SUMMARY"

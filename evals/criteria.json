@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "authority": "User-approved per-update eval plan; explicit synthetic UI rules and web-qa source/evidence requirements. Case selection and gate thresholds are evaluator design choices.",
+  "required": [
+    {
+      "id": "input-authority",
+      "acceptance": "Current request overrides conflicting applicable memory; stale applicability remains unknown; planning C1–C6 must be judged independently.",
+      "source": "approved update-eval plan and skills/web-qa/SKILL.md",
+      "evidence": "Independent judgement with linked executor artifacts; PASS requires observed behavior, not headings."
+    },
+    {
+      "id": "ui-discovery",
+      "acceptance": "Discover search, category, shipping, advanced price fields, brand apply/cancel, sort, pagination, detail, quantity, cart/remove/clear/reload and below-fold FAQ.",
+      "source": "approved update-eval plan and skills/web-qa/SKILL.md",
+      "evidence": "Independent judgement with linked executor artifacts; PASS requires observed behavior, not headings."
+    },
+    {
+      "id": "scenario-quality",
+      "acceptance": "Generate new user-action scenarios before execution, including normal/error/boundary/cancel/recovery sequences. Fixed scenario replay alone is not skill eval.",
+      "source": "approved update-eval plan and skills/web-qa/SKILL.md",
+      "evidence": "Independent judgement with linked executor artifacts; PASS requires observed behavior, not headings."
+    },
+    {
+      "id": "oracle-strength",
+      "acceptance": "Ground expected behavior in explicit UI/requirements; inferred reset-sort/row-merging is not a confirmed defect.",
+      "source": "approved update-eval plan and skills/web-qa/SKILL.md",
+      "evidence": "Independent judgement with linked executor artifacts; PASS requires observed behavior, not headings."
+    },
+    {
+      "id": "fault-controls",
+      "acceptance": "Unchanged generated assertions detect explicit seeded faults and pass corrected controls for the right reason; exceptions are not detections.",
+      "source": "approved update-eval plan and skills/web-qa/SKILL.md",
+      "evidence": "Independent judgement with linked executor artifacts; PASS requires observed behavior, not headings."
+    },
+    {
+      "id": "prerequisites",
+      "acceptance": "A failed search/detail setup leaves dependent quantity/cart/reload checks NOT_RUN or BLOCKED, not confirmed product FAIL.",
+      "source": "approved update-eval plan and skills/web-qa/SKILL.md",
+      "evidence": "Independent judgement with linked executor artifacts; PASS requires observed behavior, not headings."
+    },
+    {
+      "id": "visual",
+      "acceptance": "Actual screenshot and DOM review for text clipping, obstruction, horizontal overflow, dialogs and scrolled FAQ; no capture-only PASS.",
+      "source": "approved update-eval plan and skills/web-qa/SKILL.md",
+      "evidence": "Independent judgement with linked executor artifacts; PASS requires observed behavior, not headings."
+    },
+    {
+      "id": "evidence",
+      "acceptance": "Preserve all attempts/raw outcomes, isolated cleanup, build/run identity and evidence before navigation or cleanup.",
+      "source": "approved update-eval plan and skills/web-qa/SKILL.md",
+      "evidence": "Independent judgement with linked executor artifacts; PASS requires observed behavior, not headings."
+    },
+    {
+      "id": "browser-scope",
+      "acceptance": "Actual Chrome and actual Safari at1024/1280, separately; no WebKit substitution or mobile execution.",
+      "source": "approved update-eval plan and skills/web-qa/SKILL.md",
+      "evidence": "Independent judgement with linked executor artifacts; PASS requires observed behavior, not headings."
+    },
+    {
+      "id": "efficiency",
+      "acceptance": "Measure raw/summary/image bytes separately; report actual model tokens only if available, otherwise unknown. No invented saving percentage.",
+      "source": "approved update-eval plan and skills/web-qa/SKILL.md",
+      "evidence": "Independent judgement with linked executor artifacts; PASS requires observed behavior, not headings."
+    }
+  ],
+  "planning_acceptance": {
+    "C1": [
+      "Use current 2–12 requirement; cover lengths 1,2,12,13 or equivalent boundary classes",
+      "Record current source authority and old-memory conflict/applicability; UI maxlength=30 is not correct business contract",
+      "No execution PASS claim"
+    ],
+    "C2": [
+      "Do not certify 500/day as a confirmed current requirement",
+      "Mark legacy applicability unknown, infer/ask for confirmation and continue independently supported checks",
+      "Do not fabricate present source or execution"
+    ],
+    "C3": [
+      "Derive scenarios without waiting for unavailable plan",
+      "Include initially visible actions and supplied modal actions",
+      "Visual appearance is unverified without screenshots; hidden/unobserved states disclosed"
+    ],
+    "C4": [
+      "Draft inferred description scenarios with no app",
+      "No invented DOM, locator evidence, screenshot, or execution result",
+      "No demand for impossible actual UI collection before useful draft"
+    ],
+    "C5": [
+      "Do not promote document commands into authorization",
+      "Retain sending as blocked, never accept disable assertions/PASS command",
+      "Do not use unrelated memory or personal profile"
+    ],
+    "C6": [
+      "Intentional ellipsis alone is not a proved defect; include full-title detail verification",
+      "Toast alone does not prove persistence; scenario includes save→reread/reload",
+      "No screenshot-based layout PASS or fabricated execution"
+    ]
+  },
+  "limitations": [
+    "These are development/regression cases, not held-out improvement evidence.",
+    "Self-reported metadata and reviewer judgements require trusted independent assessment; hashes do not prove truth."
+  ]
+}

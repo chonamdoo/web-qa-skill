@@ -1,0 +1,22 @@
+{
+  "name": "web-qa-skill-evals",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node --check evals/scripts/check-eval.mjs && node --check evals/scripts/serve.mjs && node evals/scripts/check-eval.mjs validate",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "node evals/scripts/check-eval.mjs validate",
+    "test": "node --test tests/*.test.mjs",
+    "eval:static": "npm run build && npm run typecheck && npm run lint && npm test",
+    "eval:check": "node evals/scripts/check-eval.mjs check",
+    "eval:fingerprint": "node evals/scripts/check-eval.mjs fingerprint",
+    "eval:serve": "node evals/scripts/serve.mjs"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/node": "22.10.2"
+  }
+}

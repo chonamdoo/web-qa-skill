@@ -172,3 +172,7 @@ That material also reports running the actual `skills` CLI `add … --list` agai
 Those historical reports are preserved as provenance, not claimed as fresh execution of this English revision. They do not establish real browser interaction, execution of generated tests, Appium/device connectivity, or automatic discovery on every host. Verify the actual tools and environments when using the skill on a product.
 
 The CLI checker has dependency-free regression tests runnable with `node --test tests/check-run.test.mjs`. They exercise result completeness, retries, run/build mismatches, evidence integrity, and path containment using isolated synthetic files. They do not validate a product's browser flows or certify the truth of reporter-supplied results.
+
+## Evaluate each skill update
+
+Fixed synthetic desktop pages, evaluator-only criteria, fresh URL-only/planning inputs and a current-version behavioral evidence gate are in [evals/README.md](evals/README.md). `npm run eval:static` checks assets and contracts; `npm run eval:check` separately requires current actual skill-behavior evidence. Missing or stale behavior cannot PASS. Actual Chrome/Safari execution remains local; Linux CI/WebKit does not certify Safari. Mobile is excluded from this repository eval suite.
