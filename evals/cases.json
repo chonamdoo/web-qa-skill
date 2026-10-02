@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "targets": [
+    {
+      "id": "chrome-1024",
+      "browser": "chrome",
+      "width": 1024
+    },
+    {
+      "id": "chrome-1280",
+      "browser": "chrome",
+      "width": 1280
+    },
+    {
+      "id": "safari-1024",
+      "browser": "safari",
+      "width": 1024
+    },
+    {
+      "id": "safari-1280",
+      "browser": "safari",
+      "width": 1280
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "faulty",
+      "path": "evals/fixtures/shop-a.html",
+      "expected_status": "FAIL",
+      "faults": {
+        "chrome-1024": [
+          "quantity-zero",
+          "quantity-blank",
+          "range-reversed",
+          "horizontal-overflow"
+        ],
+        "chrome-1280": [
+          "quantity-zero",
+          "quantity-blank",
+          "range-reversed"
+        ],
+        "safari-1024": [
+          "quantity-zero",
+          "quantity-blank",
+          "range-reversed",
+          "horizontal-overflow"
+        ],
+        "safari-1280": [
+          "quantity-zero",
+          "quantity-blank",
+          "range-reversed"
+        ]
+      }
+    },
+    {
+      "id": "corrected",
+      "path": "evals/fixtures/shop-b.html",
+      "expected_status": "PASS",
+      "faults": {
+        "chrome-1024": [],
+        "chrome-1280": [],
+        "safari-1024": [],
+        "safari-1280": []
+      }
+    }
+  ],
+  "planning": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6"
+  ],
+  "out_of_scope": [
+    "mobile",
+    "chrome-390",
+    "safari-390",
+    "android-chrome-os",
+    "ios-safari-os"
+  ],
+  "executor_prompt": "evals/prompts/url-only.txt",
+  "planning_inputs": "evals/prompts/planning.json"
+}

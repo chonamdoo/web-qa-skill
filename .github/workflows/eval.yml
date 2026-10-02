@@ -1,0 +1,30 @@
+name: Skill update eval
+on:
+  pull_request:
+    paths: ['skills/**', 'evals/**', 'tests/**', 'package*.json', 'tsconfig.json', 'README.md', '.github/workflows/eval.yml']
+  push:
+    branches: [main]
+    paths: ['skills/**', 'evals/**', 'tests/**', 'package*.json', 'tsconfig.json', 'README.md', '.github/workflows/eval.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run eval:static
+  behavior-evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Require current independently judged behavioral evidence
+        run: node evals/scripts/check-eval.mjs check
