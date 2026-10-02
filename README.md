@@ -175,4 +175,20 @@ The CLI checker has dependency-free regression tests runnable with `node --test 
 
 ## Evaluate each skill update
 
-Fixed synthetic desktop pages, evaluator-only criteria, fresh URL-only/planning inputs and a current-version behavioral evidence gate are in [evals/README.md](evals/README.md). `npm run eval:static` checks assets and contracts; `npm run eval:check` separately requires current actual skill-behavior evidence. Missing or stale behavior cannot PASS. Actual Chrome/Safari execution remains local; Linux CI/WebKit does not certify Safari. Mobile is excluded from this repository eval suite.
+The reusable evaluation package in [evals/README.md](evals/README.md) contains two synthetic shopping pages, ten criteria, six planning/context cases, and fresh URL-only inputs. The pages cover conditional controls, scrolling, input validation, and layout checks. Evaluator answers must remain separate from the fresh executor.
+
+| Where | What runs | What it proves |
+| --- | --- | --- |
+| GitHub CI | `npm run eval:static`: build, typecheck, scoped asset lint, and gate-contract regression tests | Assets and report-validation rules pass. It does not run the skill or certify browser behavior. |
+| Local desktop | Fresh skill execution on actual Chrome and Safari at 1024/1280, followed by `npm run eval:check` with current report/evidence | Supplied current-version records meet the behavioral gate. An independent evaluator must still verify that the recorded actions and outcomes occurred. |
+
+After every skill or evaluation update:
+
+1. Run `npm ci`, then `npm run eval:static`.
+2. Start `npm run eval:serve` and freeze `npm run eval:fingerprint` before execution.
+3. Follow the [local evaluation procedure](evals/README.md#every-update): give a fresh executor only the current skill and opaque page URL, generate user-focused scenarios from the rendered UI, and execute the same suite on both fixtures. Evaluate planning/context cases separately.
+4. Preserve all attempts and nonsecret evidence. Run `npm run eval:check` with the current report and evidence root; review its result before treating the update as behaviorally verified.
+
+Missing evidence stays BLOCKED; stale, incomplete or failing evidence cannot PASS. Expected seeded faults do not excuse unrelated failing assertions: every additional reported assertion must PASS on both fixtures. GitHub CI does not execute or validate a local behavioral report, and CI success alone is not proof of behavioral improvement.
+
+Mobile is excluded from this repository evaluation suite. Playwright WebKit does not certify actual Safari. Automatic skill learning and rewriting are not implemented; proposed lessons require independent behavioral replay before changing the shared skill. Byte measurements do not establish token savings without measured token data.
