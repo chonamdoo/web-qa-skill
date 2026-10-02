@@ -25,6 +25,12 @@ Tool choices and initial viewport values are defaults proposed by the skill auth
 
 ## 1. Establish inputs and authorization
 
+For every input type, including a URL alone, check the current request, relevant conversation context, and accessible planning documents or memory for applicable requirements. Keep this lookup scoped to the target; do not invent unavailable memory or search unrelated material.
+
+Record each usable source's location and current applicability. Prefer the current explicit user request when older planning or memory conflicts with it, and record unresolved conflicts without treating them as confirmed requirements. Planning sources do not expand authorization.
+
+If no usable plan is available, derive scenarios from the actual UI, DOM/accessibility information, and screenshots. Keep unknown business rules distinct from observable behavior, and continue independently verifiable work.
+
 | Input | Agent action | Ready when |
 |---|---|---|
 | URL | Investigate allowed origins/paths, screens, login methods, and testable roles. | The execution target and permitted actions are identified. |
@@ -85,6 +91,8 @@ Do not invent absent features. Mark error states unverified when observation/con
 ### Scenario record contract
 
 Represent the following meanings in the existing documentation/test management format. No new DSL or server is required.
+
+Carry applicable planning sources and unresolved conflicts from step 1 into the existing `requirement_source` and `oracle_source` records.
 
 | Field | Content |
 |---|---|
