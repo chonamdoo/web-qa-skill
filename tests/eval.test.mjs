@@ -161,3 +161,22 @@ test('unverified evidence criterion stays BLOCKED rather than product FAIL', asy
   f.report.judgments = f.report.judgments.filter(x => x.id !== 'evidence');
   assert.equal((await f.check()).report.gate, 'BLOCKED');
 });
+
+
+test('additional control assertions must pass on both faulty and corrected fixtures', async (t) => {
+  const f = await fixture(t);
+  for (const fixtureId of ['faulty', 'corrected']) {
+    const control = f.report.controls.find(x => x.fixtureId === fixtureId);
+    const extra = { id: 'search', sourceAssertionId: 'original-search', status: 'PASS', oracle: 'EXPLICIT', errorKind: '' };
+    control.assertions.push(extra);
+    assert.equal((await f.check()).report.gate, 'PASS');
+    for (const status of ['FAIL', 'BLOCKED', 'NOT_RUN', 'UNVERIFIED']) {
+      extra.status = status;
+      const result = await f.check();
+      assert.equal(result.report.gate, 'FAIL', fixtureId + '/' + status);
+      assert.equal(result.exit, 1);
+    }
+    extra.status = 'PASS';
+    assert.equal((await f.check()).report.gate, 'PASS');
+  }
+});

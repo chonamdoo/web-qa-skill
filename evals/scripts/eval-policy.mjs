@@ -55,6 +55,7 @@ export function assess(report, bundle, cases, criteria) {
         const expected = fixture.faults[c.targetId].includes(id) ? 'FAIL' : 'PASS';
         if (matching.length !== 1 || !text(matching[0].sourceAssertionId) || matching[0].status !== expected || matching[0].oracle !== 'EXPLICIT' || (expected === 'FAIL' && matching[0].errorKind !== 'ASSERTION_MISMATCH')) status = 'FAIL';
       }
+      if (c.assertions.some(x => !faultIds.includes(x.id) && x.status !== 'PASS')) status = 'FAIL';
       if (status === 'FAIL') problems.push(c.targetId + '/' + c.fixtureId + ' control failed');
     }
     attempts.push({ scenarioId: 'control:' + c.fixtureId, targetId: c.targetId, attempt: c.attempt, status, evidence: [c.outcomeEvidence, scenario, ...(c.suiteEvidence ? [c.suiteEvidence] : []), ...(c.mappingEvidence ? [c.mappingEvidence] : [])] });

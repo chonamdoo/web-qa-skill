@@ -1,4 +1,4 @@
-name: Skill update eval
+name: Skill update static checks
 on:
   pull_request:
     paths: ['skills/**', 'evals/**', 'tests/**', 'package*.json', 'tsconfig.json', 'README.md', '.github/workflows/eval.yml']
@@ -11,35 +11,15 @@ permissions:
 jobs:
   static:
     runs-on: ubuntu-latest
-    outputs:
-      behavior-report: ${{ steps.behavior-report.outputs.present }}
     steps:
       - uses: actions/checkout@v4
-      - name: Check behavioral report availability
-        id: behavior-report
-        shell: bash
-        run: |
-          if [[ -e evals/results/current.json || -L evals/results/current.json ]]; then
-            echo "present=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "present=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::Behavioral eval BLOCKED: current report missing; evidence validation skipped."
-            echo "Behavioral eval: **BLOCKED** — current report missing. Static success does not certify skill behavior." >> "$GITHUB_STEP_SUMMARY"
-          fi
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm run eval:static
-  behavior-evidence:
-    needs: static
-    if: needs.static.outputs.behavior-report == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Require current independently judged behavioral evidence
-        run: node evals/scripts/check-eval.mjs check
+      - name: Explain local behavioral evaluation requirement
+        run: echo "Only static assets and gate contracts were checked. Actual Chrome/Safari skill-behavior eval and report validation must run locally after each update using evals/README.md. CI success is not a behavioral PASS." >> "$GITHUB_STEP_SUMMARY"
