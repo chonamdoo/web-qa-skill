@@ -109,6 +109,12 @@ For critical persistence, authorization, or payment E2E tests, use isolated nega
 
 See [CLI verification and false-green checks](skills/web-qa/references/cli-verification.md) for the input contract, trust limits, safe fault injection, and cleanup.
 
+### Bounded exploration and attempt isolation
+
+Model-directed exploration and recovery use recorded finite limits and scenario-specific waiting/progress conditions, not a universal repeated-click threshold. Limits do not shrink required coverage or turn unfinished work into PASS. Independent attempts verify their required client, account/server, and device starting state using existing fixtures; declared journeys may intentionally share state within their boundary. Scenario paths remain part of the test: an alternative route cannot erase a failed required step.
+
+Final QA reconciliation includes required teardown/restoration and run-level errors, even if assertions and the records/evidence checker passed. Original failures and cleanup errors remain distinct; optional diagnostic failures alone do not invalidate otherwise complete QA. These are procedure rules, not a bundled isolation engine or automatic enforcement by `check-run.mjs`.
+
 ### Feature described without an app
 
 ```text
