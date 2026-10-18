@@ -58,6 +58,8 @@ Find app/service commands and ports in code and profiles. After checking readine
 
 Missing connectivity or tools are environment BLOCKED conditions. Distinguish them from actual app defects, and do not substitute another engine's name for a missing environment. If no browser automation tools are available, draft code/description-based scenarios and report the missing tools for real UI observation and execution.
 
+Before each independent attempt or retry, establish and check its required starting state through existing authorized fixtures. Identify relevant client storage/session, fixture/module memory, account/role/server data, and device settings as fresh, restored, or intentionally shared. A new browser context, driver session, reload, or app relaunch does not prove backend or device state was reset. Preserve intentional state within a declared journey/group; verify its baseline at the group boundary and follow the runner's dependency and retry unit. If the baseline cannot be established, block dependent work without removing required combinations. Reset only task-owned resources.
+
 **Completion criteria:** Record actual access results, versions, devices, screens, sessions, data isolation/cleanup methods, and unprepared environments for each target.
 
 ## 3. Inventory real UI elements and states
@@ -72,6 +74,12 @@ Read structure through the DOM and accessibility tree, and verify appearance usi
 6. Keep a pending list of features present in code/descriptions but not found on screen, unvisited roles, and unexplored paths. Add elements that appear only in particular environments.
 
 Refresh observations after rerenders. If session/authentication state changes during interaction, do not continue trusting stale references or account assumptions.
+
+Before model-directed exploration or recovery, record finite action/time limits for the current goal and target, using configured runner/host limits when present. Failed actions, replanning, and tool handoffs do not silently restart the same goal's allowance. Limits bound execution effort, not required coverage.
+
+When actions repeat or cycle, inspect the goal's declared state indicators and expected waiting conditions before acting again. Repeated input, route changes, DOM counts, or animation alone do not establish progress or a stuck loop. Continue declared polling within its deadline and intentional repetition within its scenario bounds, including expected denial and duplicate-submission checks; do not blindly repeat side effects.
+
+If a limit prevents verification or no evidence supports further action, stop that path, retain its evidence/reason and remaining inventory, and continue independent safe work. Preserve demonstrated product failures; an author-selected execution limit alone is not a business oracle for FAIL. Classify unfinished required work as BLOCKED/NOT_RUN with its cause; a requirement-backed timing violation is FAIL. Correct an unsuitable limit only with live timing/state evidence under step 5's harness-correction rule, preserving the original attempt rather than silently extending it.
 
 **Completion criteria:** Every observed element is inventoried, with differences from code/descriptions and inaccessible areas exposed. If an exploration limit is reached, report the stopping reason and remaining items; do not label the investigation complete.
 
@@ -121,6 +129,7 @@ Fix expected results and their basis before judging outcomes. Current app output
 - Return to steps 3–4 for affected states when UI, build behavior, roles/authentication, preconditions, or locator identity changes or becomes ambiguous; do not silently heal and continue. Recheck the current build, target, and session before replay, and resolve locators afresh rather than persisting snapshot refs across pages or sessions. Preserve original failures. Add an attempt for reruns instead of overwriting the first failure. Before retrying actions that risk duplicate submission, check state and use only permitted retry methods, including the runner's configured automatic retries.
 - Correct a harness locator or wait condition only when live DOM/state evidence establishes the test error. Keep the original expected outcome and coverage, record the evidence and correction reason, and rerun as a separate attempt with the original failure retained. Attribute a demonstrated harness error separately from a product defect or product flakiness; a successful rerun alone does not establish the cause.
 - A healer may only propose changes grounded in the original requirements. Do not hide failures with skips, `.only`, expected-failure markers, or automatic snapshot approval to obtain a pass.
+- Preserve the user path in the scenario's `steps`, including any target-specific variant declared before execution. Reaching the expected state through an unlisted route, or after a required step failed, does not pass that scenario. Keep the original failed step and evidence; inventory and judge an authorized alternative separately rather than replacing the broken path.
 
 For critical E2E tests whose defect-detection ability needs checking, read [CLI verification and false-green checks](references/cli-verification.md). Use authorized, isolated negative controls and preserve baseline, injected-fault, and restored-baseline results separately.
 
@@ -137,6 +146,8 @@ Reconcile three dimensions separately:
 1. Element/action inventory ↔ scenarios: items without scenarios.
 2. Scenarios × required environments ↔ execution results: unexecuted combinations or steps, missing shards, zero tests, and interruptions; include all attempts, not only the latest retry.
 3. Expected results ↔ observations/evidence: items without support or proving only a different boundary.
+
+After hooks, fixture teardown, session disposal, and run-level cleanup settle, reconcile their outcomes separately from the test body. Preserve the primary verdict/error, secondary cleanup errors, raw runner exit, and their attempt/group ownership. Failed or unconfirmed required restoration, isolation release, or evidence finalization prevents overall QA PASS, even when assertions passed. Do not reuse potentially contaminated resources; retain dependent required work as BLOCKED/NOT_RUN if no clean replacement is available. Continue independent task-owned cleanup and safe work after a cleanup failure. A failed optional diagnostic alone does not block PASS when all required evidence, restoration, and isolation are confirmed; report the warning without inventing a product defect.
 
 **Pass criteria:** QA passes for the stated scope only when its required execution set is nonempty, no known unexplored or unwritten items remain within that scope, every required combination is PASS against the original expected results, and evidence collection is complete. FAIL/FLAKY/SKIPPED/BLOCKED/NOT_RUN and missing results in the required set prevent an overall pass. A successful PR smoke subset or aggregate pass rate cannot offset required failures. Disclose sampling, equivalence classes, and exclusions; do not imply proof of infinitely many possible user actions.
 

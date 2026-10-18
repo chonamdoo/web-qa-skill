@@ -12,6 +12,8 @@ node <skill-directory>/scripts/check-run.mjs PLAN.json RESULT.json EVIDENCE_ROOT
 
 It prints one JSON report: `gate`, `runId`, `buildId`, `runnerExitCode`, `required`, `attempts`, and `problems`. Exit 0 means the records/evidence gate passed, 1 means incomplete or nonpassing work, and 2 means invalid input or invocation. Error reports contain `gate: "ERROR"` and `problems` only. Preserve this exit separately from the runner's original exit. A gate PASS is necessary, not sufficient, for overall QA PASS: the main skill still requires reviewed expectations, complete exploration within scope, and evidence that actually proves the outcome.
 
+Apply step 6 of [SKILL.md](../SKILL.md) to teardown and run-level errors before publishing overall QA success. Version 1 has no cleanup fields, so this checker can pass records whose raw runner report contains a required restoration or isolation failure. The existing wrapper must combine that reconciliation with this gate and exit nonzero for unresolved required gaps while retaining the raw runner exit and checker result separately. Do not add unsupported fields or fabricate runner statuses/exits to encode cleanup. Optional diagnostic warnings follow the main skill's exception.
+
 ### Input ownership and run identity
 
 Before execution, freeze a plan from the already approved scenario/target inventory. Use a fresh run ID from the runner or CI invocation and a build ID identifying the actual tested build/configuration, not just a branch name. Preserve the plan outside runner cleanup. Do not derive the required set from whichever tests happened to produce results, trim it after failures, or reuse a prior run ID.
