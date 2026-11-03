@@ -180,3 +180,15 @@ test('additional control assertions must pass on both faulty and corrected fixtu
     assert.equal((await f.check()).report.gate, 'PASS');
   }
 });
+
+test('duplicate JSON keys in the behavioral report are invalid, not last-value PASS', async (t) => {
+  const f = await fixture(t);
+  const path = resolve(f.evidenceRoot, '..', 'duplicate.json');
+  const text = JSON.stringify(f.report);
+  for (const shadowed of [text.replace('"status":"PASS"', '"status":"FAIL","status":"PASS"'), text.replace('"freshContext":true', '"freshContext":false,"freshContext":true')]) {
+    await writeFile(path, shadowed);
+    const result = run(['check', '--report', path, '--evidence-root', f.evidenceRoot]);
+    assert.equal(result.exit, 2);
+    assert.equal(JSON.parse(result.stdout).gate, 'ERROR');
+  }
+});

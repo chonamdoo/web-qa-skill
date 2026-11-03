@@ -6,9 +6,9 @@ This is a procedure for coding agents with browser, file, and command execution 
 
 ## Install with npx (recommended)
 
-**Node.js, npm (including `npx`), and Git** are required. The [skills CLI](https://github.com/vercel-labs/skills) installs the skill directly from this GitHub repository; no separate `web-qa` npm package or Homebrew installation is needed.
+**Node.js, npm (including `npx`), and Git** are required. The [skills CLI](https://github.com/vercel-labs/skills) installs the skill directly from this GitHub repository; no separate `web-qa` npm package or Homebrew installation is needed. The skills CLI checked here (1.7.6) requires Node.js 22.20 or later; the bundled checker alone runs on Node.js 18+.
 
-Choose **one** installation scope below. You can select the target agent during installation.
+Choose **one** installation route and scope for this skill per project and agent. Before installing, check existing project, global, and plugin copies of `web-qa`, including a legacy `~/.codex/skills` copy, and review any overwrite prompt instead of replacing a customized copy. You can select the target agent during installation; choose **Symlink** when prompted so supported agents share one copy.
 
 ### Project — use in the current project
 
@@ -36,7 +36,14 @@ To list skills without installing:
 npx skills@latest add chonamdoo/web-qa-skill --list
 ```
 
-These GitHub commands become usable after the skill files are published to the repository's default branch. To inspect local sources, run `npx skills@latest add . --list` from this repository root.
+These GitHub commands become usable after the skill files are published to the repository's default branch. They fetch that branch, not a pinned release. To inspect local sources, run `npx skills@latest add . --list` from this repository root.
+
+To update an npx-managed installation, name its scope explicitly:
+
+```sh
+npx skills@latest update web-qa --project   # from that project's root
+npx skills@latest update web-qa --global
+```
 
 > Installing the skill does not automatically install Playwright, SafariDriver, Appium, Android SDK, or Xcode, or deploy an app. Prepare actual test tools and execution permissions separately.
 
@@ -158,7 +165,8 @@ Distinguish `PASS`, `FAIL`, `FLAKY`, `SKIPPED`, `BLOCKED`, and `NOT_RUN`. Genera
 skills/web-qa/
 ├── SKILL.md
 ├── scripts/
-│   └── check-run.mjs
+│   ├── check-run.mjs
+│   └── strict-json.mjs
 └── references/
     ├── cli-verification.md
     ├── mobile-and-browsers.md
@@ -177,7 +185,7 @@ That material also reports running the actual `skills` CLI `add … --list` agai
 
 Those historical reports are preserved as provenance, not claimed as fresh execution of this English revision. They do not establish real browser interaction, execution of generated tests, Appium/device connectivity, or automatic discovery on every host. Verify the actual tools and environments when using the skill on a product.
 
-The CLI checker has dependency-free regression tests runnable with `node --test tests/check-run.test.mjs`. They exercise result completeness, retries, run/build mismatches, evidence integrity, and path containment using isolated synthetic files. They do not validate a product's browser flows or certify the truth of reporter-supplied results.
+The CLI checker has dependency-free regression tests runnable with `node --test tests/check-run.test.mjs`. They exercise result completeness, retries, run/build mismatches, duplicate JSON keys, evidence integrity, and path containment using isolated synthetic files. They do not validate a product's browser flows or certify the truth of reporter-supplied results.
 
 ## Evaluate each skill update
 

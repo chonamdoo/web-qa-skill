@@ -22,7 +22,7 @@ Inspect tools needed for the run's required targets first. On Mac, check Chrome 
 
 Configure session capabilities using help/official documentation for installed versions. Typical distinctions are iOS `platformName: iOS`, `appium:automationName: XCUITest`, `browserName: safari`, and Android `platformName: Android`, `appium:automationName: UiAutomator2`, `browserName: chrome`. Establish actual device IDs, OS versions, and driver compatibility separately. Do not copy nonexistent versions/UDIDs from examples.
 
-- Operate web elements in web context; use native context and driver commands for keyboards, system back, browser toolbars, and similar controls. After switching, verify the current context and observation target.
+- Operate and read web elements in web context; use native context and driver commands for keyboards, system back, browser toolbars, and similar controls. After switching, verify the current context and observation target. Judge an input's value from its web-context value: native accessibility reads, such as XCTest on iOS, can report an empty field's placeholder as its value or normalize text equal to the placeholder to empty, and screenshots render placeholders as text.
 - Physical iPhone WebDriverAgent signing, device trust, and Developer Mode require preparation separate from Simulator setup. Do not assume permissions or a developer account are ready.
 - Isolate device IDs, driver/WDA/system ports, accounts, and seeds for parallel execution. Do not default to stopping/resetting someone else's Simulator, removing all ADB mappings, or changing personal device settings.
 - Readiness requires opening the app in the browser after device boot and driver session creation. A missing SDK, driver, or device is BLOCKED; do not fill its result with viewport emulation.
@@ -62,7 +62,7 @@ The required check is **whether content and controls remain unobscured, readable
 
 Align coordinates/scales across DOM bounding rectangles, visual viewport, and native screen observations. Page screenshots or DOM hit-tests alone do not prove absence of system UI obstruction. Check **the full device screen and the outcome after an actual tap** together. If screen capture is unavailable, report that observation limit.
 
-For keyboard checks, verify that the software keyboard actually appears. XCUITest's `appium:connectHardwareKeyboard: false` and `appium:forceSimulatorSoftwareKeyboardPresence: true` may be used after confirming installed-driver behavior. Do not pass obstruction checks merely by entering text with Android keyboard-hiding options or an artificial IME. Automatic alert acceptance or permission grants must not remove the branch a scenario is intended to test.
+For keyboard checks, verify that the software keyboard actually appears. XCUITest's `appium:connectHardwareKeyboard: false` and `appium:forceSimulatorSoftwareKeyboardPresence: true` may be used after confirming installed-driver behavior. Do not pass obstruction checks merely by entering text with Android keyboard-hiding options or an artificial IME. Automatic alert acceptance or permission grants must not remove the branch a scenario is intended to test. Dismiss the keyboard with its own key or the platform back action where possible; when a tap or drag elsewhere is needed, use an area no control covers and confirm no control changed.
 
 ### Derived example — adapt to the discovered product UI
 

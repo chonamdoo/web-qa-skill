@@ -58,6 +58,8 @@ Check in order:
 
 A successful host `curl`, mapping command, or browser launch alone does not establish connectivity. Connection failures are environment `BLOCKED`, not product UI `FAIL` or `PASS`. Do not substitute another engine's success for an unexecuted required environment.
 
+Development servers can compile a route on its first visit. Warm the required routes or use the project's production build when authorized, and attribute a first-visit compilation delay to the environment, not a product timeout, unless a requirement covers development-server latency.
+
 ## Sources
 
 - [Android Emulator network addresses](https://developer.android.com/studio/run/emulator-networking-address): distinguishes `10.0.2.2` from device loopback.
