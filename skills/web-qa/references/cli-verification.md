@@ -4,7 +4,7 @@ Read this when integrating CLI results into a QA gate or checking whether a crit
 
 ## Optional records/evidence gate
 
-The bundled `scripts/check-run.mjs` runs on Node.js 18+ with no dependencies. It checks records, not the app. Use it only when the existing gate does not already reconcile the required execution set and evidence. Resolve the script relative to the installed skill directory, not the application repository.
+The bundled `scripts/check-run.mjs` and its helper `scripts/strict-json.mjs` run on Node.js 18+ with no dependencies; keep the `scripts` directory together. The checker checks records, not the app. Use it only when the existing gate does not already reconcile the required execution set and evidence. Resolve the script relative to the installed skill directory, not the application repository.
 
 ```sh
 node <skill-directory>/scripts/check-run.mjs PLAN.json RESULT.json EVIDENCE_ROOT
@@ -59,7 +59,7 @@ Result shape, with angle-bracket values replaced by actual reporter data:
 }
 ```
 
-Unknown fields, duplicate combinations/attempts, unexpected targets, unsupported statuses, and invalid field types are rejected. Split optional/out-of-scope results into the existing full report rather than placing them in this required-only result file. Attempt numbers start at 1 and are contiguous per scenario/target; convert zero-based runner retry numbers without dropping attempts. File ordering is irrelevant.
+Duplicate member names within one JSON object, compared after unescaping, are invalid input (`ERROR`, exit 2) because ordinary JSON parsing keeps only the last value. Unknown fields, duplicate combinations/attempts, unexpected targets, unsupported statuses, and invalid field types are also rejected. Split optional/out-of-scope results into the existing full report rather than placing them in this required-only result file. Attempt numbers start at 1 and are contiguous per scenario/target; convert zero-based runner retry numbers without dropping attempts. File ordering is irrelevant.
 
 Accepted statuses: `PASS`, `FAIL`, `FLAKY`, `SKIPPED`, `BLOCKED`, `NOT_RUN`, `QUARANTINED`. Every recorded non-PASS blocks this conservative gate, including an initial failure followed by PASS. The checker never automatically adjudicates harness corrections. Preserve a demonstrated harness correction and the original failed run separately, then execute a new run under the same required scope; report both and the evidence for the correction under the main skill's retry rules. A new successful run alone does not establish a harness error or erase product flakiness.
 

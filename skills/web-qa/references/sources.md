@@ -41,6 +41,18 @@ The bounded-interaction, attempt-boundary, and teardown-reconciliation rules are
 
 No upstream code, SDK, cache implementation, model provider, telemetry, or cloud/device service is included. Source inspection does not establish execution reliability or performance gains; behavior checks on synthetic records do not certify real browser/device flows.
 
+### 2026-11-03 update review
+
+On 2026-11-03 the user asked to check this package against the updated work-skills `work-to-skill` and the then-current tester-army/e2e. Two model reviewers compared each candidate's impact scope, benefits, and drawbacks with leaving the text unchanged. The adopted wording is this skill author's adaptation, not an upstream guarantee, added execution authority, or evidence of improved agent reliability.
+
+| Inspected source | Adaptation and boundary |
+|---|---|
+| tester-army/e2e at [`4b56473`](https://github.com/tester-army/e2e/tree/4b56473e59645ed7234347c5080aa2ed3b2f0ae5) (`packages/e2e` 0.22.0): [truncated observations](https://github.com/tester-army/e2e/commit/82039ad6d640080f000c159083216c0faad53202), [cross-origin frames](https://github.com/tester-army/e2e/commit/4982d8df256180f0a6d68dd49fba0384794924fb) | Output limits and omitted frame content are observation gaps, not absence (step 3). |
+| [Empty iOS field reads](https://github.com/tester-army/e2e/commit/2a07390dc47c3f6d27069d1da411d14ea7d693e5), [keyboard dismissal](https://github.com/tester-army/e2e/commit/787a5d5407a223bee5c05d5eaee7b530f0db939d) | Input values are judged in web context; keyboard dismissal avoids pressing controls (mobile reference). |
+| [Replay `end-mismatch`](https://github.com/tester-army/e2e/blob/4b56473e59645ed7234347c5080aa2ed3b2f0ae5/docs/self-healing.mdx#L64-L67), [unreadable-screen visibility](https://github.com/tester-army/e2e/blob/4b56473e59645ed7234347c5080aa2ed3b2f0ae5/docs/mobile.mdx#L705-L707), [zero-match assertions](https://github.com/tester-army/e2e/blob/4b56473e59645ed7234347c5080aa2ed3b2f0ae5/docs/reference/expect.mdx#L703-L709) | Distinguish an action's effect from pre-existing state, and pair absence checks with a positive screen check (step 5). |
+| [Fix from the recorded failure](https://github.com/tester-army/e2e/commit/c5e324854fd523d264eca8e70d69ead6b219d0fa), [app errors in failure output](https://github.com/tester-army/e2e/commit/723c1af84ebe70e7c702d5790ae4821c7a8b54b0), [dev-server first visits](https://github.com/tester-army/e2e/blob/4b56473e59645ed7234347c5080aa2ed3b2f0ae5/skills/e2e/references/bug-bash.md#L33-L34) | Locator corrections may use recorded failure-time state; wait corrections still need live evidence. Reports include app errors near failures; first-visit compilation is attributed to the environment. Upstream's outright rejection of "design" findings and its treatment of every non-assertion failure as a wrong test are not adopted. |
+| work-skills [`evaluate.py` duplicate-key rejection](https://github.com/chonamdoo/work-skills/blob/baa679fc1b0eba99f1b2562e0246e8e25ae08ecb/tests/behavior/evaluate.py#L66-L75) | `scripts/check-run.mjs` rejects duplicate JSON object keys through `scripts/strict-json.mjs`. The trusted-record model in [CLI verification](cli-verification.md) is unchanged. |
+
 ## Official technical sources
 
 The original authoring material lists the following public references as its technical basis. Do not confuse retrieval time with a rule's effective date. Unpinned latest documentation can change; recheck original sources and tool help when judging installed versions and current product conditions. This English translation does not independently revalidate external documentation.

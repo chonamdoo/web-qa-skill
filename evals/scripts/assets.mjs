@@ -2,18 +2,26 @@ import { createHash } from 'node:crypto';
 import { readFile, readdir, lstat } from 'node:fs/promises';
 import { join } from 'node:path';
 import { Script } from 'node:vm';
+import { hasDuplicateKeys } from '../../skills/web-qa/scripts/strict-json.mjs';
 
 export const digest = (value) => createHash('sha256').update(value).digest('hex');
+/** @param {string} path */
+export async function readJson(path) {
+  const source = await readFile(path, 'utf8');
+  const value = JSON.parse(source);
+  if (hasDuplicateKeys(source, value)) throw new Error('duplicate JSON object key');
+  return value;
+}
 /** @param {string} root */
 export async function loadAssets(root) {
-  const cases = JSON.parse(await readFile(join(root, 'evals/cases.json'), 'utf8'));
-  const criteria = JSON.parse(await readFile(join(root, 'evals/criteria.json'), 'utf8'));
+  const cases = await readJson(join(root, 'evals/cases.json'));
+  const criteria = await readJson(join(root, 'evals/criteria.json'));
   if (cases.version !== 1 || criteria.version !== 1) throw new Error('unsupported eval asset version');
   const expected = ['chrome-1024', 'chrome-1280', 'safari-1024', 'safari-1280'];
   if (JSON.stringify(cases.targets.map(x => x.id).sort()) !== JSON.stringify(expected) || !cases.targets.every(x => x.id === x.browser + '-' + x.width)) throw new Error('desktop-only target matrix required');
   if (JSON.stringify(cases.fixtures.map(x => x.id).sort()) !== JSON.stringify(['corrected', 'faulty'])) throw new Error('faulty/corrected fixtures required');
   if (criteria.required.length !== 10 || new Set(criteria.required.map(x => x.id)).size !== 10 || !criteria.required.every(x => x.id && x.acceptance && x.source && x.evidence)) throw new Error('invalid required criteria');
-  const planning = JSON.parse(await readFile(join(root, cases.planning_inputs), 'utf8'));
+  const planning = await readJson(join(root, cases.planning_inputs));
   if (JSON.stringify(planning.map(x => x.id)) !== JSON.stringify(cases.planning) || !cases.planning.every(id => criteria.planning_acceptance[id]?.length)) throw new Error('planning case/criteria mismatch');
   const prompt = await readFile(join(root, cases.executor_prompt), 'utf8');
   if (!prompt.includes('{{URL}}')) throw new Error('URL-only prompt missing URL slot');

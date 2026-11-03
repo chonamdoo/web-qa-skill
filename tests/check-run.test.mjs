@@ -123,3 +123,26 @@ test('invalid JSON fails closed without echoing secret input', async (t) => {
   assert.equal(child.stdout.includes('do-not-echo'), false);
   assert.equal(JSON.parse(child.stdout).gate, 'ERROR');
 });
+
+test('rejects duplicate JSON keys that would hide a recorded failure or a required target', async (t) => {
+  const f = await fixture(t);
+  async function runRaw(planText, resultText) {
+    await writeFile(join(f.dir, 'plan.json'), planText);
+    await writeFile(join(f.dir, 'result.json'), resultText);
+    const child = spawnSync(process.execPath, [cli, join(f.dir, 'plan.json'), join(f.dir, 'result.json'), f.root], { encoding: 'utf8' });
+    return { exit: child.status, stdout: child.stdout };
+  }
+  const plan = JSON.stringify(f.plan);
+  const result = JSON.stringify(f.result);
+  assert.equal((await runRaw(plan, result.replace('"status":"PASS"', '"st\\u0061tus":"PASS"'))).exit, 0);
+  for (const shadowed of ['"status":"FAIL","status":"PASS"', '"status":"FAIL","st\\u0061tus":"PASS"']) {
+    const outcome = await runRaw(plan, result.replace('"status":"PASS"', shadowed));
+    assert.equal(outcome.exit, 2);
+    assert.equal(JSON.parse(outcome.stdout).gate, 'ERROR');
+  }
+  const wider = JSON.stringify({ ...f.plan, required: [...f.plan.required, { scenarioId: 'save-order', targetId: 'safari-desktop' }] });
+  assert.equal((await runRaw(wider.replace(/}$/, `,"required":${JSON.stringify(f.plan.required)}}`), result)).exit, 2);
+  const secret = await runRaw(plan, result.replace(/}$/, ',"do-not-echo":1,"do-not-echo":2}'));
+  assert.equal(secret.exit, 2);
+  assert.equal(secret.stdout.includes('do-not-echo'), false);
+});

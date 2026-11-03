@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import { loadAssets } from './assets.mjs';
+import { loadAssets, readJson } from './assets.mjs';
 import { assess } from './eval-policy.mjs';
 
 async function main() {
@@ -22,7 +22,7 @@ async function main() {
   if (command !== 'check') throw new Error('unknown command');
   const reportPath = resolve(options['--report'] || join(root, 'evals/results/current.json'));
   let report;
-  try { report = JSON.parse(await readFile(reportPath, 'utf8')); }
+  try { report = await readJson(reportPath); }
   catch (e) { if (e.code === 'ENOENT') return { exit: 1, output: { gate: 'BLOCKED', problems: ['current behavioral report missing'], bundleSha256: bundle.bundleSha256 } }; throw new Error('report unreadable or invalid JSON'); }
   const verdict = assess(report, bundle, cases, criteria);
   const temp = await mkdtemp(join(tmpdir(), 'web-qa-eval-gate-'));

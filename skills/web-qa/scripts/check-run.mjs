@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { createReadStream } from 'node:fs';
 import { readFile, realpath, stat } from 'node:fs/promises';
 import { isAbsolute, relative, resolve, sep } from 'node:path';
+import { hasDuplicateKeys } from './strict-json.mjs';
 
 const statuses = new Set(['PASS', 'FAIL', 'FLAKY', 'SKIPPED', 'BLOCKED', 'NOT_RUN', 'QUARANTINED']);
 const text = (value) => typeof value === 'string' && value.trim().length > 0;
@@ -27,10 +28,16 @@ async function digest(path) {
   for await (const chunk of createReadStream(path)) hash.update(chunk);
   return hash.digest('hex');
 }
+async function readJson(path, label) {
+  const source = await readFile(path, 'utf8');
+  const value = JSON.parse(source);
+  requireValue(!hasDuplicateKeys(source, value), `${label}: duplicate JSON object key`);
+  return value;
+}
 
 async function check(planPath, resultPath, evidenceRoot) {
-  const plan = JSON.parse(await readFile(planPath, 'utf8'));
-  const result = JSON.parse(await readFile(resultPath, 'utf8'));
+  const plan = await readJson(planPath, 'plan');
+  const result = await readJson(resultPath, 'result');
   header(plan, ['version', 'runId', 'buildId', 'required'], 'plan');
   header(result, ['version', 'runId', 'buildId', 'runnerExitCode', 'attempts'], 'result');
   requireValue(Array.isArray(plan.required) && plan.required.length > 0, 'plan: required must be nonempty');
