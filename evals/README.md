@@ -13,6 +13,12 @@ This package evaluates updates to web-qa. It is outside the installable skill. A
 7. Independently judge the required criteria using actual evidence. A failed search/detail prerequisite does not prove a downstream quantity/cart/reload defect. Unexecuted work remains NOT_RUN/BLOCKED. Explicit/inferred oracles, environment errors and product defects remain separate. Inspect screenshots plus DOM for text/layout; screenshot capture alone is not visual acceptance.
 8. Write the current report and its nonsecret evidence, then run `npm run eval:check -- --report REPORT.json --evidence-root EVIDENCE_DIR`. Default paths are `evals/results/current.json` and `evals/results/evidence`. No current report => BLOCKED/exit1; malformed records, including duplicate JSON object keys in the report or eval assets, => ERROR/exit2; failed required outcomes => FAIL/exit1. Static success never fills in missing behavior.
 
+## Decision cases
+
+`prompts/decisions.json` holds synthetic execution records that probe single judgments in SKILL.md: bounded exploration, attempt state, teardown reconciliation, observation gaps, pre-existing state, recorded-state locator fixes, and environment attribution. Evaluator-only criteria are `criteria.json#decision_acceptance`; give executors only the request text and the skill, never the criteria or earlier outputs. They need no browser and are not part of `eval:check`.
+
+When an update changes a rule these cases probe, rerun the affected cases with the previous and updated skill under the same executor, and record each session in `docs/validation/decision-checks.json` (executor, prompt wrapper, skill commit per arm, per-run results, limitations). `tests/decision-record.test.mjs` binds each session to the exact cases and criteria it judged, so editing a case or criterion fails static checks until the affected cases are rerun and recorded.
+
 ## Report contract (version1)
 
 - `runId`, `bundleSha256` from the frozen fingerprint.

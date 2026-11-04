@@ -1,0 +1,13 @@
+.agent-flow/
+.agent-flow/local-skills/
+.codex/
+.Codex/
+.claude/
+.omp/
+AGENTS/
+CLAUDE/
+agent-flow/
+.agents/local/
+node_modules/
+# Raw local eval reports/evidence; retain a reviewed synthetic compact record with `git add -f`.
+evals/results/

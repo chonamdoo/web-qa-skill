@@ -187,6 +187,10 @@ Those historical reports are preserved as provenance, not claimed as fresh execu
 
 The CLI checker has dependency-free regression tests runnable with `node --test tests/check-run.test.mjs`. They exercise result completeness, retries, run/build mismatches, duplicate JSON keys, evidence integrity, and path containment using isolated synthetic files. They do not validate a product's browser flows or certify the truth of reporter-supplied results.
 
+`tests/package.test.mjs` checks the installable package as part of `npm run eval:static`: frontmatter keys, `name` matching its directory, description length, local Markdown links resolving inside `skills/web-qa/`, and no maintainer-only directories inside it.
+
+[docs/validation/decision-checks.json](docs/validation/decision-checks.json) records the synthetic decision checks behind PR #8 (17 cases, updated skill only, 17/17) and PR #9 (6 cases, previous vs updated skill, 2 runs each: 10/12 vs 12/12; only the recorded-snapshot locator case changed). Executors judged supplied records without browser tools, and the author judged their outputs, so these are development/regression evidence, not real browser execution or held-out improvement. The cases are in [evals/README.md](evals/README.md#decision-cases).
+
 ## Evaluate each skill update
 
 The reusable evaluation package in [evals/README.md](evals/README.md) contains two synthetic shopping pages, ten criteria, six planning/context cases, and fresh URL-only inputs. The pages cover conditional controls, scrolling, input validation, and layout checks. Evaluator answers must remain separate from the fresh executor.

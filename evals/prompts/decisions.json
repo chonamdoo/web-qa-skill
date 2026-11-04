@@ -1,0 +1,94 @@
+[
+  {
+    "id": "completed-flow",
+    "request": "Desktop Chrome-only QA of a synthetic support-preference form. Requirement: save the selected language. All in-scope elements/actions are inventoried and covered. Runner uses a dedicated context and reset test data for each independent attempt. Every required scenario passed, persistence rereads match the prewritten requirement, all required evidence is finalized and accessible after successful cleanup, no unexplored items. The single attempt finished within its configured limits. Report the disposition and any next action."
+  },
+  {
+    "id": "no-progress-limit",
+    "request": "Authorized isolated desktop QA. One remaining filter scenario has a six-action per-goal limit recorded before execution. All six actions have been consumed alternating the same menu open/close; the filter selection and result set never changed, the goal is unverified, and the agent proposes clicking the menu again with a larger limit. Other independent scenarios have clean environments available. Decide actual next actions and the scoped verdict."
+  },
+  {
+    "id": "progressing-pagination",
+    "request": "Authorized read-only inventory QA of a synthetic catalog. The Load more button has been clicked three times. Each click added different product rows and advanced the visible item count; three of five known pages are now loaded. The recorded action/time bounds still permit two more loads. The same button/locator is used on each page. What should the agent do next and report?"
+  },
+  {
+    "id": "uncertain-side-effect",
+    "request": "Sandbox QA created an invoice by real user input. A timeout occurred after submission; backend completion is unknown. A browser reset succeeded but no state reread has occurred. The runner is configured to retry the entire scenario. Read-only inspection of this test account is authorized, but duplicate invoice creation is not. Decide next actions and current result."
+  },
+  {
+    "id": "stale-independent-attempt",
+    "request": "A browser worker is reused between independent role scenarios. First attempt grants a test admin role and modifies backend feature flags. Second attempt expects an ordinary member. Clearing cookies succeeded, but role/flags and service-worker interception reset were not verified. Its assertions currently pass against a success toast. Only dedicated test fixtures and this account may be changed. What should happen before judging or running subsequent attempts?"
+  },
+  {
+    "id": "failed-teardown",
+    "request": "All required desktop Chrome scenario assertions and result-state evidence succeeded in an isolated synthetic tenant. Teardown failed to delete the synthetic record; the test account is left with unknown residue. Raw runner exit is 0 and result-v1 attempts are PASS with valid hashes. Existing cleanup retry budget is exhausted. Report the actual conclusion without editing or fabricating runner records."
+  },
+  {
+    "id": "intentional-journey",
+    "request": "A declared single purchase-draft journey has three dependent stages in one scenario: add item, edit quantity, confirm the draft total. It uses one dedicated test session and isolated synthetic draft, with cleanup after the journey; no order is submitted. The stages require the same cart. Independent scenarios use reset fixtures. Should the browser/data reset after every stage?"
+  },
+  {
+    "id": "description-only",
+    "request": "Use web-qa to draft scenarios for a booking screen from this description only: two slots available, cancellation frees a slot. No runnable application, browser session or URL exists. No installation is authorized. Produce appropriate work and distinguish missing evidence."
+  },
+  {
+    "id": "optional-diagnostic",
+    "request": "Desktop Chrome-only QA finished every required scenario with requirement-backed assertions, complete coverage, finalized required evidence and independently confirmed restoration/isolation. Only an extra best-effort debugging video failed to finalize; it was not required by any scenario or report contract. Raw runner exit is 0. Decide the scoped QA disposition and how to report this event."
+  },
+  {
+    "id": "shared-group-cleanup",
+    "request": "A declared serial group has two passed members sharing one synthetic account and session, then a third member fails its requirement assertion. Dependent fourth member cannot run. Group teardown then fails to restore that account. No clean replacement account is available for a separate required scenario; another independent scenario has a separate confirmed-clean tenant. The runner records a shared secondary cleanup error. Decide attribution, next actions, and required coverage accounting."
+  },
+  {
+    "id": "declared-polling",
+    "request": "An authorized read-only export-status scenario declares polling until Ready with a 90-second execution deadline; the product contract permits completion within 80 seconds. At 25 seconds the same Processing label remains and the same read-only status check has returned it four times. No unexpected error or side effect occurred. Should execution stop now, change paths, or continue?"
+  },
+  {
+    "id": "intentional-submit-repetition",
+    "request": "A sandbox scenario explicitly authorizes five repeated Save clicks on the same synthetic draft to verify duplicate prevention. The same button and draft are used, and the recorded action/time allowance covers all five. Four clicks have run; each expected rejection leaves exactly one saved draft, confirmed by rereads. The fifth is still required and safe within the declared sandbox. Decide next action and whether repetition is automatically a loop failure."
+  },
+  {
+    "id": "expected-denials",
+    "request": "A permission scenario deliberately attempts six distinct forbidden actions on synthetic data. The first five driver actions return denied, exactly as specified; UI and data checks confirm no forbidden mutation. One more authorized negative check remains and fits the recorded limit. Does the failure streak require aborting or product FAIL?"
+  },
+  {
+    "id": "alternate-route",
+    "request": "The prewritten desktop scenario is avatar menu -> Settings item -> language form, with each navigation step required. The avatar menu fails to open. The agent directly types /settings and successfully saves the language; this URL route was not an allowed variant in that scenario. The original menu failure screenshot is available, and direct entry is independently authorized. Can the original scenario pass? What should be retained and tested?"
+  },
+  {
+    "id": "requirement-timing",
+    "request": "The approved product requirement says an isolated search must display its result within 10 seconds. Browser timing and required result evidence show it remained loading through 12 seconds, with services healthy and no harness/configuration fault. A 10-second check stopped the required search path. Classify this observation and whether a longer retry can erase it."
+  },
+  {
+    "id": "author-selected-limit",
+    "request": "No product latency requirement is available. Before UI exploration the agent selected a 20-second effort limit. It expires while a read-only report remains loading; no product error or timing promise is observed, and correctness has not been verified. Can this prove a product timing defect? Decide disposition and next steps."
+  },
+  {
+    "id": "declared-target-variant",
+    "request": "A requirement-backed settings scenario declared before execution that desktop uses avatar menu -> Settings, while mobile uses hamburger -> Settings because that is the supported layout. Only mobile Chrome is requested. Mobile followed its declared variant; every required step and assertion passed with complete evidence, confirmed initial state and successful required cleanup. The desktop avatar path was not executed. Decide the scoped outcome."
+  },
+  {
+    "id": "truncated-snapshot",
+    "request": "Exploring https://shop.example.test/checkout (desktop Chrome, scoped run). Your accessibility-snapshot tool printed 500 nodes and then the line `… output truncated (1,240 more nodes)`. Your inventory lists those 500 nodes. The ticket says checkout has a \"Gift wrap\" checkbox; it is not among the 500 nodes. Question: Is step-3 inventory complete, and how do you record \"Gift wrap\"?"
+  },
+  {
+    "id": "hidden-check-blank-page",
+    "request": "Scenario \"remove coupon\" (ticket: after removing a coupon, the \"Coupon applied\" banner disappears and the order total returns to the undiscounted price). The run's only assertion `expect(page.getByText('Coupon applied')).toBeHidden()` passed. The attempt's final screenshot shows a blank white page; console shows `ChunkLoadError: Loading chunk 412 failed`. Question: verdict for this scenario/target and why."
+  },
+  {
+    "id": "leftover-toast",
+    "request": "Scenario \"save profile nickname\" (ticket: the new nickname persists). Same journey: attempt 1 saved nickname \"Kim\" and showed a \"Saved\" toast that stays 10 s. Attempt 2 typed \"Lee\" and clicked Save 3 s later; the run asserted `toast \"Saved\" is visible` and passed. No reload or reread was done. Question: verdict for attempt 2 and why."
+  },
+  {
+    "id": "ios-placeholder-value",
+    "request": "iOS Safari on iOS Simulator via Appium XCUITest. Scenario \"clear search\" (ticket: tapping the clear button empties the search field). After tapping clear, the test read the field through the native accessibility element and got value `Search products`, which is exactly the field's placeholder. The web-context value was not read. Question: verdict and next step."
+  },
+  {
+    "id": "recorded-snapshot-locator",
+    "request": "Desktop Chrome. Scenario \"apply discount\" (ticket: user applies a valid discount code and sees 10% off). Attempt 1 failed: `getByRole('button', { name: 'Apply' })` timed out. The runner saved a failure-time DOM snapshot for that attempt (same build, same target, same session state) showing a single enabled button named \"Redeem\" next to the discount field; the ticket does not name the button text. Re-walking the flow live to reach that screen requires placing a real sandbox order (authorized, but each order consumes limited sandbox inventory). Question: may you correct the locator from the recorded snapshot without re-walking the flow live? What must you record and do next?"
+  },
+  {
+    "id": "dev-server-first-visit",
+    "request": "Development-code input: you started `next dev` with the project's documented command. The first test visit to /checkout timed out after 30 s; a manual second visit loaded in 2 s and subsequent runs pass. No requirement mentions development-server latency. Question: how do you classify the first timeout?"
+  }
+]
