@@ -23,6 +23,8 @@ export async function loadAssets(root) {
   if (criteria.required.length !== 10 || new Set(criteria.required.map(x => x.id)).size !== 10 || !criteria.required.every(x => x.id && x.acceptance && x.source && x.evidence)) throw new Error('invalid required criteria');
   const planning = await readJson(join(root, cases.planning_inputs));
   if (JSON.stringify(planning.map(x => x.id)) !== JSON.stringify(cases.planning) || !cases.planning.every(id => criteria.planning_acceptance[id]?.length)) throw new Error('planning case/criteria mismatch');
+  const decisions = await readJson(join(root, cases.decision_inputs));
+  if (JSON.stringify(decisions.map(x => x.id)) !== JSON.stringify(cases.decisions) || new Set(cases.decisions).size !== cases.decisions.length || !decisions.every(x => x.request?.trim() && criteria.decision_acceptance[x.id]?.length) || Object.keys(criteria.decision_acceptance).length !== decisions.length) throw new Error('decision case/criteria mismatch');
   const prompt = await readFile(join(root, cases.executor_prompt), 'utf8');
   if (!prompt.includes('{{URL}}')) throw new Error('URL-only prompt missing URL slot');
   for (const f of cases.fixtures) {

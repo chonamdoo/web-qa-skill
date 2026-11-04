@@ -95,6 +95,116 @@
       "No screenshot-based layout PASS or fabricated execution"
     ]
   },
+  "decision_acceptance": {
+    "completed-flow": [
+      "Scoped PASS permitted; no unsupported Safari/mobile blocker",
+      "No new framework, model, cache, or infrastructure required"
+    ],
+    "no-progress-limit": [
+      "Stop the affected goal instead of extending bound or repeating blindly",
+      "Preserve incomplete required scenario and prevent scoped PASS",
+      "Continue independent safe work without claiming full completion"
+    ],
+    "progressing-pagination": [
+      "Identical inputs with verified progress are not alone a stuck loop",
+      "Continue the remaining authorized inventory work within existing bounds",
+      "Do not mark complete before remaining pages"
+    ],
+    "uncertain-side-effect": [
+      "Browser reset does not authorize resubmission or prove backend reset",
+      "Inspect existing side-effect state through authorized means before any permitted retry",
+      "Retain original failure/uncertainty and do not claim PASS"
+    ],
+    "stale-independent-attempt": [
+      "Verify relevant role/backend/session preconditions instead of trusting cookie reset/toast",
+      "Use existing scoped fixtures or a demonstrably clean worker; never global clear or weaken expectation",
+      "State unresolved contamination and required coverage explicitly"
+    ],
+    "failed-teardown": [
+      "No overall QA PASS despite records/evidence gate possibly passing",
+      "Keep original passing assertion statuses and raw exit distinct from the secondary cleanup failure",
+      "Report cleanup residue and prevent contaminated reuse; no invented result-v1 fields or fake runner exit"
+    ],
+    "intentional-journey": [
+      "Preserve intentional state inside the declared journey",
+      "Reset/isolate between independent attempts, not within dependent stages",
+      "Do not infer authorization to submit a real order"
+    ],
+    "description-only": [
+      "Produce supported scenario drafts without demanding runtime/cache/isolation setup for nonexistent execution",
+      "Leave real UI and E2E unexecuted",
+      "No fabricated browser outputs, installations or universal business rules"
+    ],
+    "optional-diagnostic": [
+      "Optional diagnostic failure alone does not prevent a supported scoped PASS",
+      "Disclose the optional warning without inventing a product defect or required missing evidence",
+      "Retain the stated scope and raw result"
+    ],
+    "shared-group-cleanup": [
+      "Preserve third member primary failure and group-scoped cleanup error without blaming every passed member for a product assertion defect",
+      "Retain dependent fourth member and unready separate scenario as required nonexecuted/nonpassing gaps",
+      "Do not reuse contaminated account; continue independently clean work and do not claim scoped PASS"
+    ],
+    "declared-polling": [
+      "Continue declared bounded waiting rather than treating an unchanged screen as sufficient proof of a stuck loop",
+      "Honor the declared deadline and original requirement/path",
+      "No blind side-effect retry or premature FAIL"
+    ],
+    "intentional-submit-repetition": [
+      "Allow the declared fifth repetition within bounds; identical inputs alone are not a failure",
+      "Preserve the no-duplicate oracle and verify its result",
+      "No scope expansion or fabricated completion before the last required step"
+    ],
+    "expected-denials": [
+      "Do not count expected, verified denials as product/tool-loop failures solely from a failure-looking tool label",
+      "Continue the remaining declared negative check within its limits",
+      "Keep expected-outcome assertions and coverage"
+    ],
+    "alternate-route": [
+      "Original required path remains nonpassing and original failed step/evidence is retained",
+      "Judge direct entry as a separately inventoried scenario/attempt, not a replacement",
+      "Do not silently heal by narrowing the path"
+    ],
+    "requirement-timing": [
+      "Recognize observed requirement-backed timing failure as FAIL, not merely an author-bound BLOCKED",
+      "Retain original failure and evidence",
+      "Do not lengthen the business oracle to make it pass"
+    ],
+    "author-selected-limit": [
+      "Author-selected effort limit alone does not prove business FAIL",
+      "Stop affected unfinished work with BLOCKED/NOT_RUN and reason; no overall PASS",
+      "Do not silently reset/extend the allowance or invent latency requirements"
+    ],
+    "declared-target-variant": [
+      "Allow the predeclared mobile path and scoped PASS when all supplied prerequisites hold",
+      "Do not require out-of-scope desktop execution or impose desktop navigation on mobile",
+      "Do not generalize to full product support certification"
+    ],
+    "truncated-snapshot": [
+      "Inventory not complete; the spec'd \"Gift wrap\" control stays an observation gap/unverified (or re-observed via narrower view); not reported as missing/FAIL",
+      "Fails if: Declares inventory complete, or reports Gift wrap absent/FAIL"
+    ],
+    "hidden-check-blank-page": [
+      "Not PASS (FAIL, BLOCKED, or unverified acceptable); notes the hidden check passed on a blank/crashed screen and needs a positive check",
+      "Fails if: PASS"
+    ],
+    "leftover-toast": [
+      "Not PASS without distinguishing this attempt's effect (before/after or reread)",
+      "Fails if: PASS based on the toast"
+    ],
+    "ios-placeholder-value": [
+      "Not FAIL; value unverified until the web-context value is read (or reads it)",
+      "Fails if: FAIL for \"field not cleared\""
+    ],
+    "recorded-snapshot-locator": [
+      "Correction permitted from the recorded failure-time state of that attempt without re-walking the order-placing flow; original failure retained; rerun as separate attempt",
+      "Fails if: Requires replaying the order-placing flow live solely to justify the locator fix, or drops the original failure"
+    ],
+    "dev-server-first-visit": [
+      "Environment attribution (not product FAIL); warm routes/production build",
+      "Fails if: Product FAIL for checkout timeout"
+    ]
+  },
   "limitations": [
     "These are development/regression cases, not held-out improvement evidence.",
     "Self-reported metadata and reviewer judgements require trusted independent assessment; hashes do not prove truth."

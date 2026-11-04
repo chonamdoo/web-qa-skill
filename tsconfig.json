@@ -9,6 +9,8 @@
   },
   "include": [
     "evals/scripts/*.mjs",
-    "tests/eval.test.mjs"
+    "tests/eval.test.mjs",
+    "tests/package.test.mjs",
+    "tests/decision-record.test.mjs"
   ]
 }

@@ -72,6 +72,31 @@
     "C5",
     "C6"
   ],
+  "decisions": [
+    "completed-flow",
+    "no-progress-limit",
+    "progressing-pagination",
+    "uncertain-side-effect",
+    "stale-independent-attempt",
+    "failed-teardown",
+    "intentional-journey",
+    "description-only",
+    "optional-diagnostic",
+    "shared-group-cleanup",
+    "declared-polling",
+    "intentional-submit-repetition",
+    "expected-denials",
+    "alternate-route",
+    "requirement-timing",
+    "author-selected-limit",
+    "declared-target-variant",
+    "truncated-snapshot",
+    "hidden-check-blank-page",
+    "leftover-toast",
+    "ios-placeholder-value",
+    "recorded-snapshot-locator",
+    "dev-server-first-visit"
+  ],
   "out_of_scope": [
     "mobile",
     "chrome-390",
@@ -80,5 +105,6 @@
     "ios-safari-os"
   ],
   "executor_prompt": "evals/prompts/url-only.txt",
-  "planning_inputs": "evals/prompts/planning.json"
+  "planning_inputs": "evals/prompts/planning.json",
+  "decision_inputs": "evals/prompts/decisions.json"
 }

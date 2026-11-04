@@ -1,10 +1,10 @@
 name: Skill update static checks
 on:
   pull_request:
-    paths: ['skills/**', 'evals/**', 'tests/**', 'package*.json', 'tsconfig.json', 'README.md', '.github/workflows/eval.yml']
+    paths: ['skills/**', 'evals/**', 'tests/**', 'docs/**', 'package*.json', 'tsconfig.json', 'README.md', '.github/workflows/eval.yml']
   push:
     branches: [main]
-    paths: ['skills/**', 'evals/**', 'tests/**', 'package*.json', 'tsconfig.json', 'README.md', '.github/workflows/eval.yml']
+    paths: ['skills/**', 'evals/**', 'tests/**', 'docs/**', 'package*.json', 'tsconfig.json', 'README.md', '.github/workflows/eval.yml']
   workflow_dispatch:
 permissions:
   contents: read
