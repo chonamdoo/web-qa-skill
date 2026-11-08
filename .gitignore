@@ -11,3 +11,5 @@ agent-flow/
 node_modules/
 # Raw local eval reports/evidence; retain a reviewed synthetic compact record with `git add -f`.
 evals/results/
+skill-eval-results.json
+__pycache__/

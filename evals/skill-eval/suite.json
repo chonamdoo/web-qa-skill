@@ -1,0 +1,19 @@
+{
+ "name": "web-qa decisions",
+ "skill_dir": "skills/web-qa",
+ "cases_from": {
+  "path": "evals/prompts/decisions.json",
+  "format": "request-criteria-map",
+  "criteria_path": "evals/criteria.json",
+  "criteria_keys": [
+   "decision_acceptance"
+  ]
+ },
+ "max_usd": 10,
+ "model": "sonnet",
+ "judge_model": "sonnet",
+ "reps": 1,
+ "jobs": 4,
+ "min_pass_rate": 0.0,
+ "max_drop": 0.1
+}
